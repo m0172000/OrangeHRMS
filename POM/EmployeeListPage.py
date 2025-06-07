@@ -17,7 +17,9 @@ class EmployeeListPage:
         self.driver.find_element(*self.search_input).clear()
         self.driver.find_element(*self.search_input).send_keys(name)
         self.driver.find_element(*self.search_button).click()
-        time.sleep(10)
+        self.driver.find_element(*self.search_button).click()
+
+        time.sleep(15)
 
         # Get search result name
         try:
