@@ -30,27 +30,3 @@ def login(driver):
     logout.logout()
     assert "login" in driver.current_url.lower()
 
-
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    # Run other hooks to get the report object
-    outcome = yield
-    report = outcome.get_result()
-
-    # Only take screenshot on test failure (call phase)
-    if report.when == "call" and report.failed:
-        # Try to get driver from fixtures (either 'driver' or 'login')
-        driver = item.funcargs.get("driver") or item.funcargs.get("login")
-        if driver:
-            # Create screenshots folder if not exists
-            screenshot_dir = "screenshots"
-            os.makedirs(screenshot_dir, exist_ok=True)
-
-            # Format filename
-            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            test_name = item.name.replace("/", "_").replace("\\", "_")
-            filename = f"{screenshot_dir}/{test_name}_{timestamp}.png"
-
-            # Take screenshot
-            driver.save_screenshot(filename)
-            print(f"\n🖼️ Screenshot saved to: {filename}")
