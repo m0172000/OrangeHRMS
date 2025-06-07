@@ -9,7 +9,7 @@ from POM.logout import LogoutPage
 
 
 @pytest.fixture()
-def driver():
+def setup():
     # Set up WebDriver
     driver = webdriver.Chrome()
     driver.maximize_window()
@@ -20,7 +20,8 @@ def driver():
 
 
 @pytest.fixture
-def login(driver):
+def login(setup):
+    driver=setup
     driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     login_page = LoginPage(driver)
     login_page.login("Admin", "admin123")
