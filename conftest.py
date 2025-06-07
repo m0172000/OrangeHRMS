@@ -10,13 +10,14 @@ from POM.logout import LogoutPage
 
 @pytest.fixture()
 def driver():
-    #Set up WebDriver
-    driver=webdriver.Chrome()
+    # Set up WebDriver
+    driver = webdriver.Chrome()
     driver.maximize_window()
     driver.implicitly_wait(10)
     yield driver
     driver.close()
     driver.quit()
+
 
 @pytest.fixture
 def login(driver):
@@ -24,10 +25,12 @@ def login(driver):
     login_page = LoginPage(driver)
     login_page.login("Admin", "admin123")
     yield driver
-    ## Logout from The application
+    # Logout from the application
     logout = LogoutPage(driver)
     logout.logout()
     assert "login" in driver.current_url.lower()
+
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     # Run other hooks to get the report object
@@ -44,7 +47,7 @@ def pytest_runtest_makereport(item, call):
             os.makedirs(screenshot_dir, exist_ok=True)
 
             # Format filename
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             test_name = item.name.replace("/", "_").replace("\\", "_")
             filename = f"{screenshot_dir}/{test_name}_{timestamp}.png"
 
