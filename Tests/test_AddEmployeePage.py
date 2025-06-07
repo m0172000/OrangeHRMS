@@ -5,6 +5,7 @@ from POM.add_employee_page import AddEmployeePage
 from POM.EmployeeListPage import EmployeeListPage
 import time
 
+@pytest
 def test_add_and_verify_employees(login):
 
     # Step 1: Navigate to PIM module
