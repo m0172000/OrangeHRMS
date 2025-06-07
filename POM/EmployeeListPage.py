@@ -16,6 +16,7 @@ class EmployeeListPage:
         self.driver.find_element(*self.search_input).click()
         self.driver.find_element(*self.search_input).clear()
         self.driver.find_element(*self.search_input).send_keys(name)
+        time.sleep(5)
         self.driver.find_element(*self.search_button).click()
         self.driver.find_element(*self.search_button).click()
 
