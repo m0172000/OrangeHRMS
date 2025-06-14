@@ -3,3 +3,4 @@ selenium
 allure-pytest
 requests
 
+to test the fetch documents
